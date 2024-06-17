@@ -47,7 +47,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.4.1</version> <!-- Update version as per your requirement -->
+                <version>3.3.1</version> <!-- Update version as per your requirement -->
                 <configuration>
                     <warName>my-app</warName> <!-- Optional: Customize WAR file name -->
                     <webResources>
