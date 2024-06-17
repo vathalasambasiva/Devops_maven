@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mycompany.app</groupId>
     <artifactId>my-app</artifactId>
-    <packaging>war</packaging> <!-- Change packaging to WAR -->
+    <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>my-app</name>
     <url>https://maven.apache.org</url>
@@ -22,6 +22,9 @@
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Ensure Maven and Java version compatibility -->
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
     </properties>
     
     <build>
@@ -51,9 +54,16 @@
                 </configuration>
             </plugin>
             
-            <!-- Add any other plugins needed for your build -->
-            
-            <!-- Ensure that the maven-compiler-plugin and other plugins are configured as needed -->
+            <!-- Add the maven-compiler-plugin to enforce Java version -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version> <!-- Update version as needed -->
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
             
             <!-- Example of maven-enforcer-plugin for Maven and Java version enforcement -->
             <plugin>
