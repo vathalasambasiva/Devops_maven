@@ -4,29 +4,26 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                // Place your build commands here
                 sh 'mvn clean install'
             }
         }
 
         stage('Test') {
             steps {
-                // Place your test commands here
                 sh 'mvn test'
             }
         }
 
         stage('Package') {
             steps {
-                // Place your package commands here
                 sh 'mvn package'
             }
         }
 
         stage('Deliver') {
             steps {
-                // Run the delivery script
-                sh './jenkins/scripts/deliver.sh'
+                sh 'chmod +x ./jenkins/scripts/deliver.sh'  // Ensure the script is executable
+                sh './jenkins/scripts/deliver.sh'            // Run the deliver.sh script
             }
         }
     }
