@@ -1,34 +1,32 @@
 pipeline {
     agent any
-    
+
     stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/vathalasambasiva/Devops_maven.git'
-            }
-        }
-        
         stage('Build') {
             steps {
+                // Place your build commands here
                 sh 'mvn clean install'
             }
         }
-        
+
         stage('Test') {
             steps {
+                // Place your test commands here
                 sh 'mvn test'
             }
         }
-        
+
         stage('Package') {
             steps {
+                // Place your package commands here
                 sh 'mvn package'
             }
         }
-        
-        stage('Deploy') {
+
+        stage('Deliver') {
             steps {
-                // Deployment steps go here
+                // Run the delivery script
+                sh './jenkins/scripts/deliver.sh'
             }
         }
     }
