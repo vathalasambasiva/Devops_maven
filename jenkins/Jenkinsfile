@@ -1,62 +1,35 @@
 pipeline {
     agent any
     
-    environment {
-        DOCKER_HUB_REPO = 'your-dockerhub-username/your-app-name'
-        DOCKER_CREDENTIALS_ID = 'dockerhub-credentials'
-    }
-
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
                 git 'https://github.com/vathalasambasiva/Devops_maven.git'
             }
         }
-
-        stage('Build with Maven') {
+        
+        stage('Build') {
             steps {
                 sh 'mvn clean install'
             }
         }
-
-        stage('Build Docker Image') {
+        
+        stage('Test') {
             steps {
-                script {
-                    docker.build("${DOCKER_HUB_REPO}:latest")
-                }
+                sh 'mvn test'
             }
         }
-
-        stage('Push Docker Image') {
+        
+        stage('Package') {
             steps {
-                script {
-                    docker.withRegistry('', DOCKER_CREDENTIALS_ID) {
-                        docker.image("${DOCKER_HUB_REPO}:latest").push()
-                    }
-                }
+                sh 'mvn package'
             }
         }
-
-        stage('Deploy to Docker') {
+        
+        stage('Deploy') {
             steps {
-                script {
-                    // Stop any existing container
-                    sh 'docker stop my_app || true'
-                    sh 'docker rm my_app || true'
-
-                    // Run the Docker container
-                    sh "docker run -d -p 8080:8080 --name my_app ${DOCKER_HUB_REPO}:latest"
-                }
+                // Deployment steps go here
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Deployment successful!'
-        }
-        failure {
-            echo 'Deployment failed!'
         }
     }
 }
