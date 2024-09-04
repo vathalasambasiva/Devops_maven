@@ -1,0 +1,30 @@
+build:
+  stage: build
+  script:
+    - cd AssayUploader/
+    - mvn compile
+
+test:
+  stage: test
+  script:
+    - cd AssayUploader/
+    - mvn test
+  artifacts:
+    paths:
+      - AssayUploader/target/
+pages:
+  stage: deploy
+  dependencies:
+    - test
+  script:
+   - mkdir public
+   - mv AssayUploader/target/ public
+  artifacts:
+    paths:
+      - public
+
+deploy:
+  stage: deploy
+  script:
+    - mvn verify
+ 
